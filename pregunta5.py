@@ -5,10 +5,10 @@ def hijo_sin_amor(mochila, objetos_sacados=0, objeto_buscado="anillo de poder"):
         objeto = mochila.pop(0)
         objetos_sacados += 1
         if objeto == objeto_buscado:
-            return ("para encontrar el " + objeto_buscado + " han sido sacados " + str(objetos_sacados), objetos_sacados)
+            return ("Para encontrar el " + objeto_buscado + " han sido sacados " + str(objetos_sacados), objetos_sacados)
         else:
             return hijo_sin_amor(mochila, objetos_sacados, objeto_buscado)
 
-# Ejemplo de uso:
-mochila = ["ordenador", "anillo de poder", "ganas de estudiar", "llaves de casa"]
+
+mochila = ["mi gato", "anillo de poder", "ganas de estudiar", "llaves de casa"]
 print(hijo_sin_amor(mochila, objeto_buscado="anillo de poder"))

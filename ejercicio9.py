@@ -1,35 +1,49 @@
-import networkx as nx
-
-# Crear un grafo no dirigido
-G = nx.Graph()
-
-# Agregar los planetas
-planetas = ["Tierra", "Knowhere", "Zen-Whoberi", "Vomir", "Titán", "Nidavellir", "Planeta1", "Planeta2", "Planeta3", "Planeta4", "Planeta5", "Planeta6"]
-G.add_nodes_from(planetas)
-
-# Agregar las aristas
-G.add_edge("Tierra", "Knowhere", weight=20)
-G.add_edge("Tierra", "Zen-Whoberi", weight=30)
-G.add_edge("Tierra", "Vomir", weight=40)
-G.add_edge("Knowhere", "Titán", weight=10)
-G.add_edge("Knowhere", "Nidavellir", weight=15)
-G.add_edge("Zen-Whoberi", "Planeta1", weight=25)
-G.add_edge("Zen-Whoberi", "Planeta2", weight=35)
-G.add_edge("Vomir", "Planeta3", weight=45)
-G.add_edge("Vomir", "Planeta4", weight=55)
-G.add_edge("Titán", "Planeta5", weight=5)
-G.add_edge("Titán", "Planeta6", weight=10)
-# Encontrar el árbol de expansión mínima
-arbol_expansion = nx.prim_mst(G)
-
-# Hallar el camino más corto desde Tierra hasta Vormir
-camino1 = nx.dijkstra_path(G, "Tierra", "Vomir")
-
-# Hallar el camino más corto desde Knowhere hasta Titán
-camino2 = nx.dijkstra_path(G, "Knowhere", "Titán")
-
-# Hallar el camino más corto desde Zen-
-shortest_path = nx.dijkstra_path(G, "Zen-Whoberi", "Nidavellir")
-
-# Obtener todos los vecinos de Titán
-vecinos_de_titan = G.neighbors("Titán")
+from collections import defaultdict
+ 
+class Graph:
+    def __init__(self,vertices):
+        self.V= vertices
+        self.graph = []
+ 
+    def addEdge(self,u,v,w):
+        self.graph.append([u,v,w])
+ 
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
+ 
+    def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else :
+            parent[yroot] = xroot
+            rank[xroot] += 1
+ 
+    def kruskalMST(self):
+        result =[]
+        i = 0
+        e = 0
+        self.graph =  sorted(self.graph,key=lambda item: item[2])
+        parent = [] ; rank = []
+ 
+        for node in range(self.V):
+            parent.append(node)
+            rank.append(0)
+ 
+        while e < self.V -1 :
+            u,v,w =  self.graph[i]
+            i = i + 1
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+            if x != y:
+                e = e + 1
+                result.append([u,v,w])
+                self.union(parent, rank, x, y)
+ 
+        for u,v,weight  in result:
+            print("%d - %d: %d" % (u,v,weight))
