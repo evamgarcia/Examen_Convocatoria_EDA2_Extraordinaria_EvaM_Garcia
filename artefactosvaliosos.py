@@ -11,38 +11,20 @@ class Artefactosvaliosos(object):
 
 
 
-    def crear_artefacto_valioso():
-            mochila = []
-            num = int(input("cuantos artefactos quieres crear:"))
-            for i in range (1,num+1):
-                nombre = input("Nombre del artefacto: ")
-                peso = input("Peso del artefacto: ")
-                precio = input("Precio del artefacto: ")
-                fecha_caducidad = input("Fecha de caducidad del artefacto: ")
-                artefacto = Artefactosvaliosos(nombre, peso, precio, fecha_caducidad)
-                mochila.append(artefacto)
-            return mochila
-    
-def crear_mochila(self):
-    mochila = self.crear_artefacto_valioso()
-    for i in range(len(mochila) - 1, 0, -1):
-        control = False
-        for j in range(i, 0, -1):
-            if mochila[j].fecha_caducidad < mochila[j - 1].fecha_caducidad:
-                mochila[j], mochila[j - 1] = mochila[j - 1], mochila[j]
-                control = True
-        for j in range(i):
-            if mochila[j].fecha_caducidad > mochila[j + 1].fecha_caducidad:
-                mochila[j], mochila[j + 1] = mochila[j + 1], mochila[j]
-                control = True
-        if control == False:
-            break
-    return mochila
+artefacto1 = Artefactosvaliosos(3, "mi gato", 105, "13/11/2022")
+artefacto2 = Artefactosvaliosos(5, "sable luz", 50, "29/11/2021")
+artefacto3 = Artefactosvaliosos(4, "anillo de poder", 256, "12/12/2024")
+
+artefactos = [artefacto1, artefacto2, artefacto3]
+
+def ordenar_artefactos(artefactos):
+    artefactos.sort(key=lambda x: x.fecha_caducidad)
+    for artefacto in artefactos:
+        print(artefacto)
 
 
+print(ordenar_artefactos(artefactos))
 
-collar = Artefactosvaliosos(3, "collar", 105, "13/11/2021")
-pendientes = Artefactosvaliosos(5, "pendientes", 50, "29/11/2023")
-reloj = Artefactosvaliosos(4, "reloj", 256, "12/12/2020")
-
-crear_mochila(collar, reloj, pendientes)
+artefacto3.precio = 253
+print("\n El precio del artefacto ha sido modificado. El nuevo precio es:")
+print(artefacto3)
