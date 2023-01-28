@@ -5,7 +5,7 @@ class Armadura:
         print(f"Se ha creado la armadura {self.nombre} de rango {self.rango} con exito")
 
     def __str__(self) -> str:
-        return f"La armadura {self.nombre} de rango {self.rango} "
+        return f"La armadura {self.nombre} de rango {self.rango} se ha creado"
  
     def calificacion(self):
         self.codigo_legion = self.nombre
